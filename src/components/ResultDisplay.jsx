@@ -1,0 +1,1 @@
+// Tutaj wklej pełny kod komponentu ResultDisplay

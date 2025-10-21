@@ -1,0 +1,1 @@
+// Tutaj wklej funkcje calculateBefore, calculateMarried, calculateCrisis, calculateDivorce
