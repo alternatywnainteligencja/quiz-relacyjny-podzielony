@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import QuestionScreen from './QuestionScreen';
+import { Heart } from 'lucide-react';
+import BeforePathway from '../pathways/BeforePathway';
+import MarriedPathway from '../pathways/MarriedPathway';
+import CrisisPathway from '../pathways/CrisisPathway';
+import DivorcePathway from '../pathways/DivorcePathway';
 import ResultDisplay from './ResultDisplay';
-import { calculateBefore, calculateMarried, calculateCrisis, calculateDivorce } from '../calculations/calculations';
-import { Heart, ArrowLeft } from 'lucide-react';
 
 const MarriageQuiz = () => {
-  const [pathway, setPathway] = useState(null);
-  const [result, setResult] = useState(null);
+  const [pathway, setPathway] = useState<string | null>(null);
+  const [result, setResult] = useState<any>(null);
 
   if (result) {
     return <ResultDisplay result={result} onRestart={() => { setResult(null); setPathway(null); }} />;
@@ -23,11 +25,11 @@ const MarriageQuiz = () => {
             </div>
             <div className="space-y-4">
               <button onClick={() => setPathway('before')} className="w-full bg-blue-600 hover:bg-blue-700 text-left p-6 rounded-lg transition-colors border-2 border-blue-500">
-                <h3 className="text-xl font-bold mb-2">🤵 Planuję wziąć ślub</h3>
+                <h3 className="text-xl font-bold mb-2">💍 Planuję wziąć ślub</h3>
                 <p className="text-gray-300 text-sm">Przed ślubem - ocena sytuacji</p>
               </button>
               <button onClick={() => setPathway('married')} className="w-full bg-green-600 hover:bg-green-700 text-left p-6 rounded-lg transition-colors border-2 border-green-500">
-                <h3 className="text-xl font-bold mb-2">💍 Jestem w małżeństwie</h3>
+                <h3 className="text-xl font-bold mb-2">💚 Jestem w małżeństwie</h3>
                 <p className="text-gray-300 text-sm">Po ślubie - ocena bieżącej sytuacji</p>
               </button>
               <button onClick={() => setPathway('crisis')} className="w-full bg-orange-600 hover:bg-orange-700 text-left p-6 rounded-lg transition-colors border-2 border-orange-500">
@@ -45,10 +47,12 @@ const MarriageQuiz = () => {
     );
   }
 
-  if (pathway === 'before') return <QuestionScreen title="🤵 Przed ślubem" color="blue" onResult={setResult} onBack={() => setPathway(null)} pathwayType="before" />;
-  if (pathway === 'married') return <QuestionScreen title="💍 W małżeństwie" color="green" onResult={setResult} onBack={() => setPathway(null)} pathwayType="married" />;
-  if (pathway === 'crisis') return <QuestionScreen title="⚠️ Kryzys" color="orange" onResult={setResult} onBack={() => setPathway(null)} pathwayType="crisis" />;
-  if (pathway === 'divorce') return <QuestionScreen title="⚖️ Rozwód" color="red" onResult={setResult} onBack={() => setPathway(null)} pathwayType="divorce" />;
+  if (pathway === 'before') return <BeforePathway onResult={setResult} onBack={() => setPathway(null)} />;
+  if (pathway === 'married') return <MarriedPathway onResult={setResult} onBack={() => setPathway(null)} />;
+  if (pathway === 'crisis') return <CrisisPathway onResult={setResult} onBack={() => setPathway(null)} />;
+  if (pathway === 'divorce') return <DivorcePathway onResult={setResult} onBack={() => setPathway(null)} />;
+
+  return null;
 };
 
 export default MarriageQuiz;
